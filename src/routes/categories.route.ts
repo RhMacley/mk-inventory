@@ -4,12 +4,12 @@ import { CreateCategoryService } from "../services/CreateCategoryService"
 
 const categoriesRoutes = Router()
 const categoryRepository = new CategoryRepository()
-const categoryService = new CreateCategoryService(categoryRepository)
 
 categoriesRoutes.post("/", (request: Request, response: Response) => {
   
   const { name, description } = request.body
 
+  const categoryService = new CreateCategoryService(categoryRepository)
   categoryService.execute({name, description})
 
   return response.status(201).json({message: "Created successfully"})
