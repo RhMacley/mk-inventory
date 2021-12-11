@@ -1,12 +1,12 @@
 import express from 'express'
-import { categoriesRoutes }  from './routes/categories.route'
+import { router } from './routes/index.routes'
 
 const app = express()
 const PORT = 3333
 
 app.use(express.json())
 
-//Routes from API
-app.use("/categories", categoriesRoutes)
+//API Route
+app.use(router)
 
 app.listen(PORT, () => console.log(`App running on port ${PORT}...`))

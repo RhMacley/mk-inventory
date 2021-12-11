@@ -1,25 +1,10 @@
-import { Router, Request, Response } from "express"
-import { CategoryRepository } from "../repositories/CategoryRepository"
-import { CreateCategoryService } from "../services/CreateCategoryService"
+import { Router } from "express"
+import { createCategory, getAllCategories } from '../controller/categories.controller'
 
-const categoriesRoutes = Router()
-const categoryRepository = new CategoryRepository()
+const categoryRouter = Router()
 
-categoriesRoutes.post("/", (request: Request, response: Response) => {
-  
-  const { name, description } = request.body
+categoryRouter.post("/", createCategory)
 
-  const categoryService = new CreateCategoryService(categoryRepository)
-  categoryService.execute({name, description})
+categoryRouter.get("/", getAllCategories)
 
-  return response.status(201).json({message: "Created successfully"})
-})
-
-categoriesRoutes.get("/", (request: Request, response: Response) => {
-
-  const categories = categoryRepository.showAll()
-
-  return response.status(200).json({message: "All categories", categories})
-})
-
-export { categoriesRoutes }
+export { categoryRouter }
